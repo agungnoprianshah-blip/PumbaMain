@@ -1,5 +1,5 @@
 -- ==================================================
--- YOKUDO HUB | TAB | Info (Pumba Version)
+-- PUMBA HUB | TAB | Info
 -- ==================================================
 
 local Window = _G.YOKUDO_Window
@@ -16,7 +16,7 @@ local DISCORD_LINK = "https://discord.gg/aKeK6avatS"
 -- ==================================================
 -- SECTION: HUB INFO
 -- ==================================================
-InfoTab:Section("YOKUDO HUB | Steal An Egg")
+InfoTab:Section("PUMBA HUB | Steal An Egg")
 
 InfoTab:Paragraph({
     Name = "Join Group For Notification Update Script",
@@ -76,12 +76,12 @@ InfoTab:Section("Tentang Script")
 
 InfoTab:Paragraph({
     Name = "Info Versi",
-    Content = "YOKUDO HUB - Steal An Egg\nBackend: Original Yokudo\nUI: Pumba Hub Edition\nAuthor: S4"
+    Content = "PUMBA HUB - Steal An Egg\nBackend: Original Features\nUI: Pumba Hub Edition\nAuthor: Pumba"
 })
 
 InfoTab:Label({
-    Text = "Terima kasih sudah menggunakan script ini!",
+    Text = "Terima kasih sudah menggunakan script ini! 🐗",
     Color = Color3.fromRGB(150, 150, 180)
 })
 
-print("✅ Info Tab Loaded (Pumba)")
+print("✅ PUMBA Info Tab Loaded")
