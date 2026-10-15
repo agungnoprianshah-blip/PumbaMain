@@ -1,8 +1,13 @@
 -- ==================================================
 -- YOKUDO HUB | PUMBA BRIDGE
 -- ==================================================
-local Pumba = loadstring(GetScript("PumbaUI.lua"))()
-_G.YOKUDO_Pumba = Pumba
+
+local Pumba = _G.YOKUDO_Pumba
+
+if not Pumba then
+    warn("❌ Pumba tidak loaded! Cek PumbaUI.lua")
+    return
+end
 
 local Window = Pumba:Window({
     Name = "YOKUDO HUB",
@@ -22,4 +27,4 @@ local Window = Pumba:Window({
 })
 
 _G.YOKUDO_Window = Window
-print("✅ Pumba Bridge Loaded")
+print("✅ Pumba Window created")
