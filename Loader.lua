@@ -1,5 +1,5 @@
 -- ==================================================
--- YOKUDO HUB | LOADER (PUMBA EDITION - DEBUG MODE)
+-- PUMBA HUB | LOADER (FULL)
 -- ==================================================
 
 local BASE_URL = "https://raw.githubusercontent.com/agungnoprianshah-blip/PumbaMain/main/"
@@ -13,8 +13,11 @@ print = function(...)
     end
 end
 
-print("🔵 Loading YOKUDO HUB...")
+print("🔵 Loading PUMBA HUB...")
 
+-- ==================================================
+-- CACHE + SAFE LOAD
+-- ==================================================
 _G.YOKUDO_Cache = _G.YOKUDO_Cache or {}
 
 local function GetScript(path)
@@ -29,34 +32,31 @@ end
 
 _G.YOKUDO_GetScript = GetScript
 
--- ✅ Fungsi baru: load dengan error handler
 local function SafeLoad(path)
     print("📦 ["..path.."] downloading...")
-    local src = GetScript(path)
-    
-    if not src or #src < 10 then
+    local ok, src = pcall(GetScript, path)
+    if not ok or not src or #src < 10 then
         warn("❌ ["..path.."] FILE KOSONG / 404!")
         return false
     end
-    
     print("   ["..path.."] size: "..#src.." bytes")
-    
     local fn, err = loadstring(src)
     if not fn then
         warn("❌ ["..path.."] SYNTAX ERROR: "..tostring(err))
         return false
     end
-    
-    local ok, result = pcall(fn)
-    if not ok then
+    local ok2, result = pcall(fn)
+    if not ok2 then
         warn("❌ ["..path.."] RUNTIME ERROR: "..tostring(result))
         return false
     end
-    
     print("✅ ["..path.."] loaded")
     return true, result
 end
 
+-- ==================================================
+-- WAIT FOR GAME
+-- ==================================================
 repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
 
 local Player = game.Players.LocalPlayer
@@ -77,7 +77,7 @@ LoadingGui.Parent = CoreGui
 local Container = Instance.new("Frame")
 Container.Size = UDim2.new(0, 280, 0, 110)
 Container.Position = UDim2.new(0.5, -140, 0.5, -55)
-Container.BackgroundColor3 = Color3.fromRGB(16, 17, 23)
+Container.BackgroundColor3 = Color3.fromRGB(12, 8, 8)
 Container.BorderSizePixel = 0
 Container.Parent = LoadingGui
 
@@ -102,15 +102,15 @@ local Subtitle = Instance.new("TextLabel", Container)
 Subtitle.Size = UDim2.new(1, -30, 0, 14)
 Subtitle.Position = UDim2.new(0, 15, 0, 36)
 Subtitle.BackgroundTransparency = 1
-Subtitle.Text = "Steal An Egg"
-Subtitle.TextColor3 = Color3.fromRGB(145, 145, 175)
+Subtitle.Text = "Steal An Egg | Warthog Edition"
+Subtitle.TextColor3 = Color3.fromRGB(150, 120, 120)
 Subtitle.TextSize = 9
 Subtitle.Font = Enum.Font.GothamMedium
 
 local BarBg = Instance.new("Frame", Container)
 BarBg.Size = UDim2.new(0.75, 0, 0, 4)
 BarBg.Position = UDim2.new(0.125, 0, 0.5, 0)
-BarBg.BackgroundColor3 = Color3.fromRGB(40, 40, 55)
+BarBg.BackgroundColor3 = Color3.fromRGB(40, 20, 20)
 BarBg.BorderSizePixel = 0
 
 local C3 = Instance.new("UICorner", BarBg)
@@ -151,12 +151,14 @@ Update(10)
 local ok1, pumba = SafeLoad("PumbaUI.lua")
 if ok1 then
     _G.YOKUDO_Pumba = pumba
-    print("   _G.YOKUDO_Pumba set:", _G.YOKUDO_Pumba ~= nil)
 end
 
 Update(12)
 SafeLoad("MainPumba.lua")
 
+-- ==================================================
+-- SPEED LOCK
+-- ==================================================
 Update(15)
 SafeLoad("Features/SpeedLock.lua")
 
@@ -170,6 +172,7 @@ end
 -- LOAD FEATURES
 -- ==================================================
 Update(25)
+print("📦 Loading Features...")
 SafeLoad("Features/AntiAFK.lua")
 SafeLoad("Features/AntiTrap.lua")
 SafeLoad("Features/GodMode.lua")
@@ -184,18 +187,53 @@ SafeLoad("Features/AntiGuard.lua")
 SafeLoad("Features/ConfigSystem.lua")
 
 -- ==================================================
--- LOAD TABS (PUMBA)
+-- LOAD TABS (PUMBA VERSION)
 -- ==================================================
 Update(65)
+print("📦 Loading Tabs...")
 SafeLoad("Tabs/Info.lua")
 
+Update(66)
+SafeLoad("Tabs/Farming.lua")
+
+Update(67)
+SafeLoad("Tabs/Combat.lua")
+
+Update(68)
+SafeLoad("Tabs/Event.lua")
+
+Update(69)
+SafeLoad("Tabs/Setting.lua")
+
+Update(70)
+SafeLoad("Tabs/CollectEggNew.lua")
+
+Update(71)
+SafeLoad("Tabs/ESP.lua")
+
+Update(72)
+SafeLoad("Tabs/HopServer.lua")
+
+Update(73)
+SafeLoad("Tabs/MapSettings.lua")
+
+Update(74)
+SafeLoad("Tabs/DontUseIt.lua")
+
+-- AutoFarming.lua di-skip (ter-obfuscate)
+
 -- ==================================================
--- BYPASS
+-- BYPASS ANTI CHEAT
 -- ==================================================
 Update(96)
 SafeLoad("Features/BypassAntiCheat.lua")
 
+-- ==================================================
+-- DONE
+-- ==================================================
 Update(100)
 task.wait(0.5)
 LoadingGui:Destroy()
-print("🚀 YOKUDO HUB | Ready!")
+print("🚀 PUMBA HUB | Ready!")
+print("🎯 Speed:", _G.YOKUDO_IsSpeedUnlocked and "✅ UNLOCKED" or "🔒 LOCKED")
+print("🎨 UI:", _G.YOKUDO_Window and "✅ PUMBA" or "❌ NOT LOADED")
