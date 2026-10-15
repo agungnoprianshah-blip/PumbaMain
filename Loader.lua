@@ -1,12 +1,10 @@
 -- ==================================================
 -- YOKUDO HUB | STEAL AN EGG | Loader (PUMBA EDITION)
--- ✅ SpeedLock Check
--- ✅ Load Features + Pumba UI
 -- ==================================================
 
 local BASE_URL = "https://raw.githubusercontent.com/agungnoprianshah-blip/PumbaMain/main/"
 
-_G.YOKUDO_EnablePrint = false
+_G.YOKUDO_EnablePrint = true
 
 local oldPrint = print
 print = function(...)
@@ -32,6 +30,9 @@ local function GetScript(path)
     return script
 end
 
+-- Ekspos GetScript ke global biar file lain bisa pakai
+_G.YOKUDO_GetScript = GetScript
+
 -- ==================================================
 -- WAIT UNTIL GAME IS LOADED
 -- ==================================================
@@ -43,7 +44,7 @@ local CoreGui = game:GetService("CoreGui")
 print("✅ Game loaded, Player: " .. Player.Name)
 
 -- ==================================================
--- CREATE LOADING SCREEN (Yokudo Original)
+-- CREATE LOADING SCREEN
 -- ==================================================
 local function CreateLoadingScreen()
     local LoadingGui = Instance.new("ScreenGui")
@@ -69,7 +70,7 @@ local function CreateLoadingScreen()
     ContainerCorner.Parent = Container
 
     local ContainerBorder = Instance.new("UIStroke")
-    ContainerBorder.Color = Color3.fromRGB(105, 90, 190)
+    ContainerBorder.Color = Color3.fromRGB(255, 70, 70)
     ContainerBorder.Thickness = 2
     ContainerBorder.Transparency = 0.2
     ContainerBorder.Parent = Container
@@ -158,31 +159,27 @@ Loading.Update(5)
 -- LOAD CORE FILES
 -- ==================================================
 Loading.Update(8)
+print("📦 Loading Config.lua...")
 loadstring(GetScript("Config.lua"))()
 
 Loading.Update(10)
--- loadstring(GetScript("UI.lua"))()  -- ❌ UI lama, diganti Pumba
+print("📦 Loading PumbaUI.lua...")
+_G.YOKUDO_Pumba = loadstring(GetScript("PumbaUI.lua"))()
+print("   Pumba loaded:", _G.YOKUDO_Pumba ~= nil)
 
 Loading.Update(12)
--- loadstring(GetScript("Components.lua"))()  -- ❌ Components lama, diganti Pumba
-
--- ==================================================
--- ✅ LOAD PUMBA UI
--- ==================================================
-Loading.Update(13)
-loadstring(GetScript("PumbaUI.lua"))()
-
-Loading.Update(14)
+print("📦 Loading MainPumba.lua...")
 loadstring(GetScript("MainPumba.lua"))()
+print("   Window created:", _G.YOKUDO_Window ~= nil)
 
 -- ==================================================
--- ✅ LOAD SPEED LOCK
+-- LOAD SPEED LOCK
 -- ==================================================
 Loading.Update(15)
 loadstring(GetScript("Features/SpeedLock.lua"))()
 
 -- ==================================================
--- ✅ RUN SPEED CHECK
+-- RUN SPEED CHECK
 -- ==================================================
 Loading.Update(18)
 print("🔍 Running Speed Check...")
@@ -194,127 +191,49 @@ if _G.YOKUDO_SpeedLock then
 end
 
 -- ==================================================
--- LOAD TABS MANAGER (❌ skip, diganti Pumba)
--- ==================================================
-Loading.Update(25)
--- loadstring(GetScript("Tabs/Init.lua"))()
-
--- ==================================================
 -- LOAD FEATURES
 -- ==================================================
-Loading.Update(28)
+Loading.Update(25)
+print("📦 Loading Features...")
 loadstring(GetScript("Features/AntiAFK.lua"))()
-
-Loading.Update(30)
---loadstring(GetScript("Features/WalkSpeed.lua"))()
-
-Loading.Update(33)
 loadstring(GetScript("Features/AntiTrap.lua"))()
-
-Loading.Update(36)
 loadstring(GetScript("Features/GodMode.lua"))()
-
--- ✅ TeleportSystem
-Loading.Update(39)
 loadstring(GetScript("Features/TeleportSystem.lua"))()
-
-Loading.Update(42)
 loadstring(GetScript("Features/AutoFarm.lua"))()
-
-Loading.Update(45)
 loadstring(GetScript("Features/AutoAttack.lua"))()
-
-Loading.Update(48)
 loadstring(GetScript("Features/AFKSystem.lua"))()
-
--- ==================================================
--- LOAD FEATURES (lanjutan)
--- ==================================================
-Loading.Update(52)
 loadstring(GetScript("Features/FarmingManager.lua"))()
-
-Loading.Update(56)
---loadstring(GetScript("Features/AutoEventNew.lua"))()
-
-Loading.Update(58)
---loadstring(GetScript("Features/ManagerDrone.lua"))()
-
-Loading.Update(60)
 loadstring(GetScript("Features/ManualFastClick.lua"))()
-
-Loading.Update(61)
 loadstring(GetScript("Features/DropEgg.lua"))()
-
-Loading.Update(62)
 loadstring(GetScript("Features/AntiGuard.lua"))()
-
-Loading.Update(63)
 loadstring(GetScript("Features/ConfigSystem.lua"))()
 
 -- ==================================================
 -- LOAD TABS (PUMBA VERSION)
 -- ==================================================
--- Info tab sudah di-rewrite ke Pumba
 Loading.Update(65)
+print("📦 Loading Tabs/Info.lua...")
 loadstring(GetScript("Tabs/Info.lua"))()
 
--- Tab lain masih Yokudo, di-comment dulu sampai di-rewrite
-Loading.Update(68)
+-- Tab lain di-comment dulu sampai di-rewrite ke Pumba
+-- Loading.Update(68)
 -- loadstring(GetScript("Tabs/Farming.lua"))()
-
-Loading.Update(70)
+-- Loading.Update(70)
 -- loadstring(GetScript("Tabs/Combat.lua"))()
-
-Loading.Update(73)
+-- Loading.Update(73)
 -- loadstring(GetScript("Tabs/AutoFarming.lua"))()
-
-Loading.Update(76)
+-- Loading.Update(76)
 -- loadstring(GetScript("Tabs/Event.lua"))()
-
-Loading.Update(80)
+-- Loading.Update(80)
 -- loadstring(GetScript("Tabs/HopServer.lua"))()
-
-Loading.Update(85)
+-- Loading.Update(85)
 -- loadstring(GetScript("Tabs/Setting.lua"))()
-
-Loading.Update(88)
+-- Loading.Update(88)
 -- loadstring(GetScript("Tabs/CollectEggNew.lua"))()
-
-Loading.Update(90)
+-- Loading.Update(90)
 -- loadstring(GetScript("Tabs/ESP.lua"))()
-
-Loading.Update(91)
+-- Loading.Update(91)
 -- loadstring(GetScript("Tabs/MapSettings.lua"))()
-
--- ==================================================
--- ✅ REGISTER LOCKABLE BUTTONS (skip, UI diganti Pumba)
--- ==================================================
-Loading.Update(92)
--- task.spawn(function()
---     task.wait(0.5)
---     if _G.YOKUDO_SpeedLock then
---         if _G.YOKUDO_FarmButton then
---             _G.YOKUDO_SpeedLock.RegisterLockable(_G.YOKUDO_FarmButton, "Farm")
---         end
---         if _G.YOKUDO_GetEggCheckButton then
---             _G.YOKUDO_SpeedLock.RegisterLockable(_G.YOKUDO_GetEggCheckButton, "GetEgg")
---         end
---         task.wait(0.3)
---         if not _G.YOKUDO_SpeedLock.IsUnlocked() then
---             _G.YOKUDO_SpeedLock.ApplyLock()
---         end
---     end
--- end)
-
--- ==================================================
--- SELECT DEFAULT TAB (skip, Pumba auto-select)
--- ==================================================
-Loading.Update(94)
--- if _G.YOKUDO_TabsManager then
---     _G.YOKUDO_TabsManager:SelectTabByName("Info")
--- end
-
-Loading.Update(95)
 
 -- ==================================================
 -- LOAD ANTI CHEAT
@@ -322,12 +241,9 @@ Loading.Update(95)
 Loading.Update(96)
 loadstring(GetScript("Features/BypassAntiCheat.lua"))()
 
-
 Loading.Update(100)
 
 task.wait(0.3)
 Loading.Destroy()
 print("✅ Loading Screen Closed!")
 print("🚀 YOKUDO HUB | Ready!")
-print("🎯 Speed:", _G.YOKUDO_IsSpeedUnlocked and "✅ UNLOCKED" or "🔒 LOCKED")
-print("🎨 UI:", _G.YOKUDO_Window and "✅ PUMBA" or "❌ NOT LOADED")
