@@ -1,7 +1,6 @@
 -- ═══════════════════════════════════════════════════════════
--- 🐗 PUMBA HUB LIBRARY — Warthog Edition v1.0
--- Rebranded from AirFlow. Auto-loads Pumba logo & background.
--- Compatible with all AirFlow API.
+-- 🐗 PUMBA HUB LIBRARY — Warthog Edition v1.0 (PATCHED)
+-- Skip asset download biar tidak hang
 -- ═══════════════════════════════════════════════════════════
 
 local O="Accent"
@@ -14,34 +13,12 @@ local I=game:GetService"Players"
 local J=I.LocalPlayer
 
 -- ═══════════════════════════════════════════════════════════
--- 🐗 PUMBA ASSET LOADER
+-- 🐗 PUMBA ASSET LOADER (PATCHED - SKIP DOWNLOAD)
 -- ═══════════════════════════════════════════════════════════
-local PUMBA_ASSET_URL = "https://files.catbox.moe/3m7x2e.jpeg"
+local PUMBA_LOGO = "rbxassetid://17052613497"
+local PUMBA_BG   = nil
 
-local function pumbaLoadImage(url, fileName)
-    if type(writefile)~="function" or type(isfile)~="function" or type(getcustomasset)~="function" then
-        return nil
-    end
-    local folder = "PumbaHubAssets"
-    if type(isfolder)=="function" and type(makefolder)=="function" and not isfolder(folder) then
-        pcall(makefolder, folder)
-    end
-    local path = folder.."/"..fileName
-    if not isfile(path) then
-        local ok, data = pcall(game.HttpGet, game, url)
-        if not ok or not data or #data < 100 then return nil end
-        local okW = pcall(writefile, path, data)
-        if not okW then return nil end
-    end
-    local ok, asset = pcall(getcustomasset, path)
-    return ok and asset or nil
-end
-
-local PUMBA_LOGO = pumbaLoadImage(PUMBA_ASSET_URL, "pumba_logo.jpeg")
-local PUMBA_BG   = pumbaLoadImage(PUMBA_ASSET_URL, "pumba_bg.jpeg")
-
-if PUMBA_LOGO then print("[PumbaHub] ✅ Logo loaded") else warn("[PumbaHub] ⚠️ Logo gagal (executor gak support getcustomasset)") end
-if PUMBA_BG   then print("[PumbaHub] ✅ Background loaded") else warn("[PumbaHub] ⚠️ Background gagal") end
+print("[PumbaHub] ✅ Assets patched (skip download)")
 
 -- ═══════════════════════════════════════════════════════════
 
@@ -107,7 +84,7 @@ e.Themes={
 
 e.Theme=table.clone(e.Themes.Pumba)
 e.ThemeName="Pumba"
-e.Assets={Shadow="rbxassetid://6014261993",Glow="rbxassetid://8992230677",Logo=PUMBA_LOGO or "rbxassetid://17052613497"}
+e.Assets={Shadow="rbxassetid://6014261993",Glow="rbxassetid://8992230677",Logo=PUMBA_LOGO}
 
 local E
 local function P()
@@ -1423,14 +1400,13 @@ function e.Window(ac,k)
     g(l,UDim.new(0,10))
     d.BodyStroke=i(l,a.Stroke)
 
-    -- ═══ 🐗 PUMBA BACKGROUND (auto-inject) ═══
+    -- Background image disabled (skip download)
     local bgAsset = k.Background or PUMBA_BG
     if bgAsset then
         local bgWrap=c("Frame",{Name="PumbaBg",Size=UDim2.fromScale(1,1),BackgroundTransparency=1,ClipsDescendants=true,ZIndex=0,Parent=l})
         g(bgWrap,UDim.new(0,10))
         c("ImageLabel",{Name="PumbaBgImage",Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Image=bgAsset,ImageTransparency=k.BackgroundTransparency or 0.45,ImageColor3=k.BackgroundColor or Color3.fromRGB(255,255,255),ScaleType=Enum.ScaleType.Crop,ZIndex=0,Parent=bgWrap})
     end
-    -- ═════════════════════════════════════════
 
     T(l)
     z(l,UDim2.fromOffset(500,180),UDim2.new(.5,0,1,8),.86,270)
@@ -1440,7 +1416,6 @@ function e.Window(ac,k)
     c(q,{Position=UDim2.new(0,170,0,28),Size=UDim2.new(0,1,1,-56),BackgroundColor3=a.Stroke,BorderSizePixel=0,Parent=l})
     local K=c(q,{Name="Header",Size=UDim2.new(1,0,0,72),BackgroundTransparency=1,Parent=D})
     local Q=c("ImageLabel",{Position=UDim2.fromOffset(22,27),Size=UDim2.fromOffset(30,30),BackgroundTransparency=1,Image="",ImageColor3=a.Accent,ScaleType=Enum.ScaleType.Fit,Parent=K})
-    -- ⭐ LOGO PUMBA sebagai default
     u(Q, k.Icon or PUMBA_LOGO or v.Logo)
     d._logo=Q
     d._titleLabel=f{Position=UDim2.fromOffset(60,25),Size=UDim2.new(1,-70,0,20),Text=k.Title or"Pumba Hub",TextSize=20,Parent=K}
@@ -2660,7 +2635,7 @@ function h:Destroy()
     task.delay(.22,function() self.Gui:Destroy() end)
 end
 
-print("🐗 PUMBA HUB Library v1.0 loaded")
-print("   Theme: Pumba (red) | Logo: "..(PUMBA_LOGO and "✅" or "❌").." | Background: "..(PUMBA_BG and "✅" or "❌"))
+print("🐗 PUMBA HUB Library v1.0 (PATCHED) loaded")
+print("   Theme: Pumba (red) | Assets: skip download")
 
 return e
