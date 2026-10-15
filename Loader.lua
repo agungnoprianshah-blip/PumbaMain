@@ -1,5 +1,5 @@
 -- ==================================================
--- PUMBA HUB | LOADER (FULL)
+-- PUMBA HUB | LOADER (FULL FINAL)
 -- ==================================================
 
 local BASE_URL = "https://raw.githubusercontent.com/agungnoprianshah-blip/PumbaMain/main/"
@@ -189,38 +189,48 @@ SafeLoad("Features/ConfigSystem.lua")
 -- ==================================================
 -- LOAD TABS (PUMBA VERSION)
 -- ==================================================
-Update(65)
+Update(60)
 print("📦 Loading Tabs...")
+
+-- 1. Shim dulu (biar AutoFarming.lua tidak crash)
+SafeLoad("Tabs/Init.lua")
+
+-- 2. Tab utama
+Update(62)
 SafeLoad("Tabs/Info.lua")
 
-Update(66)
+Update(63)
 SafeLoad("Tabs/Farming.lua")
 
-Update(67)
+Update(64)
+SafeLoad("Tabs/AutoFarming.lua")  -- ← obfuscated, tapi di-shim
+
+Update(65)
+SafeLoad("Tabs/AutoFarmingUI.lua")  -- ← UI Pumba untuk AutoFarm
+
+Update(66)
 SafeLoad("Tabs/Combat.lua")
 
-Update(68)
+Update(67)
 SafeLoad("Tabs/Event.lua")
 
-Update(69)
+Update(68)
 SafeLoad("Tabs/Setting.lua")
 
-Update(70)
+Update(69)
 SafeLoad("Tabs/CollectEggNew.lua")
 
-Update(71)
+Update(70)
 SafeLoad("Tabs/ESP.lua")
 
-Update(72)
+Update(71)
 SafeLoad("Tabs/HopServer.lua")
 
-Update(73)
+Update(72)
 SafeLoad("Tabs/MapSettings.lua")
 
-Update(74)
+Update(73)
 SafeLoad("Tabs/DontUseIt.lua")
-
--- AutoFarming.lua di-skip (ter-obfuscate)
 
 -- ==================================================
 -- BYPASS ANTI CHEAT
