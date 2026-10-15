@@ -192,21 +192,23 @@ SafeLoad("Features/ConfigSystem.lua")
 Update(60)
 print("📦 Loading Tabs...")
 
--- 1. Shim dulu (biar AutoFarming.lua tidak crash)
+-- Shim (biar component lama tidak crash)
 SafeLoad("Tabs/Init.lua")
 
--- 2. Tab utama
+-- Tab utama
 Update(62)
 SafeLoad("Tabs/Info.lua")
 
 Update(63)
 SafeLoad("Tabs/Farming.lua")
 
-Update(64)
-SafeLoad("Tabs/AutoFarming.lua")  -- ← obfuscated, tapi di-shim
+-- AutoFarming.lua di-skip (obfuscated + sudah tidak dipakai)
+-- Update(64)
+-- SafeLoad("Tabs/AutoFarming.lua")
 
-Update(65)
-SafeLoad("Tabs/AutoFarmingUI.lua")  -- ← UI Pumba untuk AutoFarm
+-- AutoFarmingUI.lua di-skip (tidak dipakai)
+-- Update(65)
+-- SafeLoad("Tabs/AutoFarmingUI.lua")
 
 Update(66)
 SafeLoad("Tabs/Combat.lua")
