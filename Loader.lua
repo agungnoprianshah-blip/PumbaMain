@@ -1,10 +1,7 @@
 -- ==================================================
--- YOKUDO HUB | STEAL AN EGG | Loader (UPDATED v13)
--- ✅ SpeedLock Check លូតមុនគេ
--- ✅ MapSettings (Tab Only — All In One)
--- ✅ Sound (Play Once at 50%)
--- ✅ Load Features + Tabs
--- ✅ Register + RunCheck
+-- YOKUDO HUB | STEAL AN EGG | Loader (PUMBA EDITION)
+-- ✅ SpeedLock Check
+-- ✅ Load Features + Pumba UI
 -- ==================================================
 
 local BASE_URL = "https://raw.githubusercontent.com/bromboxi/barsuno/main/"
@@ -46,7 +43,7 @@ local CoreGui = game:GetService("CoreGui")
 print("✅ Game loaded, Player: " .. Player.Name)
 
 -- ==================================================
--- CREATE LOADING SCREEN
+-- CREATE LOADING SCREEN (Yokudo Original)
 -- ==================================================
 local function CreateLoadingScreen()
     local LoadingGui = Instance.new("ScreenGui")
@@ -95,7 +92,7 @@ local function CreateLoadingScreen()
     Subtitle.Size = UDim2.new(1, -30, 0, 14)
     Subtitle.Position = UDim2.new(0, 15, 0, 36)
     Subtitle.BackgroundTransparency = 1
-    Subtitle.Text = "Steal An Egg"
+    Subtitle.Text = "Steal An Egg | Pumba Edition"
     Subtitle.TextColor3 = Color3.fromRGB(145, 145, 175)
     Subtitle.TextSize = 9
     Subtitle.TextXAlignment = Enum.TextXAlignment.Center
@@ -118,7 +115,7 @@ local function CreateLoadingScreen()
     local Bar = Instance.new("Frame")
     Bar.Name = "Bar"
     Bar.Size = UDim2.new(0, 0, 1, 0)
-    Bar.BackgroundColor3 = Color3.fromRGB(105, 90, 190)
+    Bar.BackgroundColor3 = Color3.fromRGB(255, 70, 70)
     Bar.BorderSizePixel = 0
     Bar.Parent = BarBg
 
@@ -132,7 +129,7 @@ local function CreateLoadingScreen()
     Percent.Position = UDim2.new(0, 15, 0.7, 0)
     Percent.BackgroundTransparency = 1
     Percent.Text = "0%"
-    Percent.TextColor3 = Color3.fromRGB(105, 90, 190)
+    Percent.TextColor3 = Color3.fromRGB(255, 70, 70)
     Percent.TextSize = 18
     Percent.TextXAlignment = Enum.TextXAlignment.Center
     Percent.TextYAlignment = Enum.TextYAlignment.Center
@@ -164,13 +161,22 @@ Loading.Update(8)
 loadstring(GetScript("Config.lua"))()
 
 Loading.Update(10)
-loadstring(GetScript("UI.lua"))()
+-- loadstring(GetScript("UI.lua"))()  -- ❌ UI lama, diganti Pumba
 
 Loading.Update(12)
-loadstring(GetScript("Components.lua"))()
+-- loadstring(GetScript("Components.lua"))()  -- ❌ Components lama, diganti Pumba
 
 -- ==================================================
--- ✅ LOAD SPEED LOCK (លូតមុនគេ)
+-- ✅ LOAD PUMBA UI
+-- ==================================================
+Loading.Update(13)
+loadstring(GetScript("PumbaUI.lua"))()
+
+Loading.Update(14)
+loadstring(GetScript("MainPumba.lua"))()
+
+-- ==================================================
+-- ✅ LOAD SPEED LOCK
 -- ==================================================
 Loading.Update(15)
 loadstring(GetScript("Features/SpeedLock.lua"))()
@@ -188,10 +194,10 @@ if _G.YOKUDO_SpeedLock then
 end
 
 -- ==================================================
--- LOAD TABS MANAGER
+-- LOAD TABS MANAGER (❌ skip, diganti Pumba)
 -- ==================================================
 Loading.Update(25)
-loadstring(GetScript("Tabs/Init.lua"))()
+-- loadstring(GetScript("Tabs/Init.lua"))()
 
 -- ==================================================
 -- LOAD FEATURES
@@ -222,7 +228,7 @@ Loading.Update(48)
 loadstring(GetScript("Features/AFKSystem.lua"))()
 
 -- ==================================================
--- LOAD FEATURES (បន្ត)
+-- LOAD FEATURES (lanjutan)
 -- ==================================================
 Loading.Update(52)
 loadstring(GetScript("Features/FarmingManager.lua"))()
@@ -246,78 +252,67 @@ Loading.Update(63)
 loadstring(GetScript("Features/ConfigSystem.lua"))()
 
 -- ==================================================
--- LOAD TABS
+-- LOAD TABS (PUMBA VERSION)
 -- ==================================================
+-- Info tab sudah di-rewrite ke Pumba
 Loading.Update(65)
 loadstring(GetScript("Tabs/Info.lua"))()
 
+-- Tab lain masih Yokudo, di-comment dulu sampai di-rewrite
 Loading.Update(68)
-loadstring(GetScript("Tabs/Farming.lua"))()
+-- loadstring(GetScript("Tabs/Farming.lua"))()
 
 Loading.Update(70)
-loadstring(GetScript("Tabs/Combat.lua"))()
+-- loadstring(GetScript("Tabs/Combat.lua"))()
 
 Loading.Update(73)
-loadstring(GetScript("Tabs/AutoFarming.lua"))()
+-- loadstring(GetScript("Tabs/AutoFarming.lua"))()
 
 Loading.Update(76)
-loadstring(GetScript("Tabs/Event.lua"))()
+-- loadstring(GetScript("Tabs/Event.lua"))()
 
 Loading.Update(80)
-loadstring(GetScript("Tabs/HopServer.lua"))()
+-- loadstring(GetScript("Tabs/HopServer.lua"))()
 
 Loading.Update(85)
-loadstring(GetScript("Tabs/Setting.lua"))()
+-- loadstring(GetScript("Tabs/Setting.lua"))()
 
 Loading.Update(88)
-loadstring(GetScript("Tabs/CollectEggNew.lua"))()
+-- loadstring(GetScript("Tabs/CollectEggNew.lua"))()
 
 Loading.Update(90)
-loadstring(GetScript("Tabs/ESP.lua"))()
+-- loadstring(GetScript("Tabs/ESP.lua"))()
 
--- ==================================================
--- ✅ LOAD MAP SETTINGS TAB
--- ==================================================
 Loading.Update(91)
-loadstring(GetScript("Tabs/MapSettings.lua"))()
+-- loadstring(GetScript("Tabs/MapSettings.lua"))()
 
 -- ==================================================
--- ✅ REGISTER LOCKABLE BUTTONS
+-- ✅ REGISTER LOCKABLE BUTTONS (skip, UI diganti Pumba)
 -- ==================================================
 Loading.Update(92)
-task.spawn(function()
-    task.wait(0.5)
-    
-    if _G.YOKUDO_SpeedLock then
-        if _G.YOKUDO_FarmButton then
-            _G.YOKUDO_SpeedLock.RegisterLockable(_G.YOKUDO_FarmButton, "Farm")
-            print("✅ Registered FarmButton")
-        else
-            warn("⚠️ _G.YOKUDO_FarmButton not found!")
-        end
-        
-        if _G.YOKUDO_GetEggCheckButton then
-            _G.YOKUDO_SpeedLock.RegisterLockable(_G.YOKUDO_GetEggCheckButton, "GetEgg")
-            print("✅ Registered GetEggCheckButton")
-        else
-            warn("⚠️ _G.YOKUDO_GetEggCheckButton not found!")
-        end
-        
-        task.wait(0.3)
-        if not _G.YOKUDO_SpeedLock.IsUnlocked() then
-            _G.YOKUDO_SpeedLock.ApplyLock()
-            print("🔒 Re-applied Lock")
-        end
-    end
-end)
+-- task.spawn(function()
+--     task.wait(0.5)
+--     if _G.YOKUDO_SpeedLock then
+--         if _G.YOKUDO_FarmButton then
+--             _G.YOKUDO_SpeedLock.RegisterLockable(_G.YOKUDO_FarmButton, "Farm")
+--         end
+--         if _G.YOKUDO_GetEggCheckButton then
+--             _G.YOKUDO_SpeedLock.RegisterLockable(_G.YOKUDO_GetEggCheckButton, "GetEgg")
+--         end
+--         task.wait(0.3)
+--         if not _G.YOKUDO_SpeedLock.IsUnlocked() then
+--             _G.YOKUDO_SpeedLock.ApplyLock()
+--         end
+--     end
+-- end)
 
 -- ==================================================
--- SELECT DEFAULT TAB
+-- SELECT DEFAULT TAB (skip, Pumba auto-select)
 -- ==================================================
 Loading.Update(94)
-if _G.YOKUDO_TabsManager then
-    _G.YOKUDO_TabsManager:SelectTabByName("Info")
-end
+-- if _G.YOKUDO_TabsManager then
+--     _G.YOKUDO_TabsManager:SelectTabByName("Info")
+-- end
 
 Loading.Update(95)
 
@@ -335,5 +330,4 @@ Loading.Destroy()
 print("✅ Loading Screen Closed!")
 print("🚀 YOKUDO HUB | Ready!")
 print("🎯 Speed:", _G.YOKUDO_IsSpeedUnlocked and "✅ UNLOCKED" or "🔒 LOCKED")
-print("🗺️ MapSettings:", _G.YOKUDO_MapSettings and "✅ LOADED" or "❌ NOT LOADED")
-print("🔊 Sound:", _G.YOKUDO_Sound and "✅ LOADED" or "❌ NOT LOADED")
+print("🎨 UI:", _G.YOKUDO_Window and "✅ PUMBA" or "❌ NOT LOADED")
