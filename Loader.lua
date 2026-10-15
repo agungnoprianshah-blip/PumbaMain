@@ -4,7 +4,7 @@
 -- ✅ Load Features + Pumba UI
 -- ==================================================
 
-local BASE_URL = "https://raw.githubusercontent.com/bromboxi/barsuno/main/"
+local BASE_URL = "https://raw.githubusercontent.com/agungnoprianshah-blip/PumbaMain/main/"
 
 _G.YOKUDO_EnablePrint = false
 
